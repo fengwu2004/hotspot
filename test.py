@@ -1,11 +1,32 @@
 import asyncio
+import time
 import aiohttp
+from concurrent.futures.thread import ThreadPoolExecutor
+
+executor = ThreadPoolExecutor()
+
+now = lambda : time.time()
 
 async def hello():
-    print("Hello world!")
-    r = await asyncio.sleep(1)
-    print("Hello again!")
     
-loop = asyncio.get_event_loop()
+    await fun()
+    
+    await asyncio.sleep(5)
+    
+    for n in range(100):
+        
+        print('kdkdkd')
+        
+async def fun():
 
-loop.run_until_complete(asyncio.wait([hello()]))
+    await asyncio.sleep(10)
+    
+    for n in range(12):
+        
+        print('funfu')
+        
+start = now()
+
+asyncio.get_event_loop().run_until_complete(hello())
+
+print('TIME: ', now() - start)
