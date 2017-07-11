@@ -1,34 +1,24 @@
-class Task(object):
+def getLines():
 
-    taskid = 0
-    
-    def __init__(self, target):
-    
-        Task.taskid += 1
-        
-        self.tid = Task.taskid
-        
-        self.target = target
-        
-        self.sendval = None
-        
-    def run(self):
-    
-        return self.target.send(self.sendval)
-    
-    
-def foo():
+    lines = [line.rstrip('\n') for line in open('top.txt')]
 
-    print('Part 1')
-    
-    yield
-    
-    print('Part 2')
-    
-    yield
-    
-t1 = Task(foo())
+    return lines
 
-t1.run()
+def saveToDB(lines):
+    
+    f = open('topadd.txt', 'w')
+    
+    r = set()
 
-t1.run()
+    for line in lines:
+        
+        r.add(line)
+        
+    for v in r:
+        
+        f.write("'" + v + "',")
+        
+saveToDB(getLines())
+    
+    
+

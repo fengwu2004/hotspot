@@ -1,66 +1,21 @@
-import tornado.ioloop
-import tornado.web
-import time
-import tornado.concurrent
-from tornado import gen
-from concurrent import futures
-from concurrent.futures.thread import ThreadPoolExecutor
-import asyncio
-import aiohttp
+from pymongo import MongoClient
 
-executor = ThreadPoolExecutor()
+client = MongoClient('localhost', 27017)
 
-loop = asyncio.get_event_loop()
+db = client["hotspot"]
 
-class MainHandle(tornado.web.RequestHandler):
-    
-    async def post(self):
-        
-        print('post')
-        
-        await self.asyFun()
+coll = db['adminInfo']
 
-    async def asyFun(self):
-    
-        def send(f):
-            
-            self.set_header('Content-Type', 'application/json')
-        
-            self.write(f)
+info = {}
 
-            print('||||||||||||||||||||')
+info['top'] = ['信息服务','公用事业','交运设备','食品饮料','餐饮旅游','纺织服装','采掘','综合','黑色金属','房地产','农林牧渔','电子','家用电器','轻工制造','金融服务','化工','商业贸易','机械设备','有色金属','医药生物','信息设备','建筑建材','交通运输']
 
-        def onAs():
-            
-            val = dict()
+info['secondary'] = ['旅游综合','渔业','光学光电子','证券','有色金属冶炼与加工','燃气','农业综合','园区开发','橡胶','物流','电气设备','多元金融','元件','塑料','非汽车交运设备','石油化工','公交','港口','仪器仪表','银行','机场','种植业','食品加工制造','贸易','畜禽养殖','采掘服务','饲料','化学纤维','景点','纺织制造','餐饮','医疗器械','金属制品','专用设备','通信运营','医疗服务','通用机械','生物制品','白色家电','化学制品','煤炭开采','其他电子','环保工程及服务','航空运输','汽车零部件','建筑装饰','医药商业','饮料制造','化学制药','高速公路','酒店','计算机设备','中药','电子制造','家用轻工','航运','石油开采','综合','电力','网络服务','通信设备','交运设备服务','动物保健','保险','零售','建筑材料','林业','计算机应用','钢铁','视听器材','传媒','包装印刷','化工新材料','其他采掘','化学原料','汽车整车','房地产开发','半导体','水务','农产品加工','铁路运输','金属非金属新材料','服装家纺','造纸']
 
-            val['name'] = 'yanli'
+info['source'] = ['客户需求', '行业新闻', '好专家']
 
-            val['age'] = 10
-        
-            for i in range(1000000):
-                
-                print('abcdefghijklmndfhrnffnfjj')
-        
-            return val
-        
-        send(onAs())
+info['stocksource'] = ['A股', '港股', '美股']
 
-    async def get(self):
-        
-        print('get')
+data = {'industry':info}
 
-        self.write('hello world=======---!!!')
-
-def make_app():
-    
-    return tornado.web.Application([(r"/", MainHandle),])
-
-
-if __name__ == '__main__':
-
-    app = make_app()
-    
-    app.listen(8888)
-    
-    tornado.ioloop.IOLoop.current().start()
+coll.insert_one(data)
