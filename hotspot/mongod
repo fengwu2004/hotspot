@@ -1,0 +1,13 @@
+db.createUser({
+    user:'edge',
+    pwd:'9988770',
+    roles:[{role:'readWrite', db:'hotspot'}]
+})
+
+db.createUser(
+  {
+    user: "eric",
+    pwd: "eric90",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)

@@ -1,8 +1,6 @@
 import json
-import tornado.escape
 from pymongo import MongoClient
 import time
-import tornado.web
 from hotspot.RequestBaseManager import RequestBaseManager
 
 class SpotCreateManager(RequestBaseManager):

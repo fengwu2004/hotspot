@@ -33,7 +33,7 @@ class SpotAdminInfo(RequestBaseManager):
             creators.append(u['name'])
             
         
-        if industry == None:
+        if industry is None:
             
             self.write({'success':0})
             
