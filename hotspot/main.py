@@ -10,7 +10,7 @@ from hotspot.autoStatistic import AutoStatisticManager
 
 def make_app():
     return tornado.web.Application([
-        (r"/login", loginManager),
+        (r"/test", loginManager),
         (r"/create", SpotCreateManager),
         (r"/user", UserManager),
         (r"/spotinfo", SpotAdminInfo),
